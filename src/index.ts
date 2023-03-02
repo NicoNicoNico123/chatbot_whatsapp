@@ -74,7 +74,8 @@ const start = async () => {
 		if ( botMentioned || includesText ) {
 			await handleIncomingMessage(message);
 		}
-
+		
+		// await handleIncomingMessage(message);
 
 		
 	});
