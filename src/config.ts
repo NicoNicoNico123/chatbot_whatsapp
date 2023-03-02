@@ -11,6 +11,9 @@ interface IConfig {
 	// OpenAI API Key
 	openAIAPIKey: string;
 
+	// OpenAI Token
+	opentoken: string;
+
 	// Prefix
 	prefixEnabled: boolean;
 	gptPrefix: string;
@@ -27,6 +30,9 @@ interface IConfig {
 // Config
 const config: IConfig = {
 	openAIAPIKey: process.env.OPENAI_API_KEY || "", // Default: ""
+
+	//Token
+	opentoken: process.env.OPENAI_ACCESS_TOKEN || "", // Default: ""
 
 	// Prefix
 	prefixEnabled: getEnvBooleanWithDefault("PREFIX_ENABLED", true), // Default: true

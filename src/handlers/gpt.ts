@@ -14,9 +14,9 @@ const conversations = {};
 const handleMessageGPT = async (message: Message, prompt: string) => {
 	try {
 		// Get last conversation
-		const lastConversation = conversations[message.from];
+		const lastConversation = conversations[message.id._serialized];
 
-		cli.print(`[GPT] Received prompt from ${message.from}: ${prompt}`);
+		cli.print(`[GPT] Received prompt from ${message.id._serialized}: ${prompt}`);
 
 		const start = Date.now();
 
@@ -32,12 +32,12 @@ const handleMessageGPT = async (message: Message, prompt: string) => {
 
 		const end = Date.now() - start;
 
-		cli.print(`[GPT] Answer to ${message.from}: ${response.text}  | OpenAI request took ${end}ms)`);
+		cli.print(`[GPT] Answer to ${message.id._serialized}: ${response.text}  | OpenAI request took ${end}ms)`);
 
 		// Set the conversation
-		conversations[message.from] = {
+		conversations[message.id._serialized] = {
 			conversationId: response.conversationId,
-			parentMessageId: response.id
+			parentMessageId: response.parentMessageId
 		};
 
 		// TTS reply (Default: disabled)
@@ -50,7 +50,7 @@ const handleMessageGPT = async (message: Message, prompt: string) => {
 		message.reply(response.text);
 	} catch (error: any) {
 		console.error("An error occured", error);
-		message.reply("An error occured, please contact the administrator. (" + error.message + ")");
+		message.reply("Chatgpt比你打爆咗, 一陣再試啦");
 	}
 };
 

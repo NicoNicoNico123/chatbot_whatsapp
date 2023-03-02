@@ -57,27 +57,45 @@ const start = async () => {
 		// Ignore if message is from status broadcast
 		if (message.from == constants.statusBroadcast) return;
 
-		// Ignore if it's a quoted message, (e.g. Bot reply)
-		if (message.hasQuotedMsg) return;
+		// // Ignore if it's a quoted message, (e.g. Bot reply)
+		// if (message.hasQuotedMsg) return;
 
-		await handleIncomingMessage(message);
+		// Ignore if it's not from me
+		if (message.fromMe) return;
+
+		// Check if the message mentions the bot with "@"
+		const mentions = await message.getMentions();
+
+		const botMentioned = mentions.some((contact) => contact.isMe);
+
+		// Check if the message body contains "@Chatgpt_test"
+		const includesText = message.body.includes("Chatgpt_test");
+
+		if ( botMentioned || includesText ) {
+			await handleIncomingMessage(message);
+		}
+
+
+		
 	});
 
 	// Reply to own message
-	client.on(Events.MESSAGE_CREATE, async (message: Message) => {
-		// Ignore if message is from status broadcast
-		if (message.from == constants.statusBroadcast) return;
+	// client.on(Events.MESSAGE_CREATE, async (message: Message) => {
+	// 	// Ignore if message is from status broadcast
+	// 	if (message.from == constants.statusBroadcast) return;
 
-		// Ignore if it's a quoted message, (e.g. Bot reply)
-		if (message.hasQuotedMsg && message.fromMe) return;
+	// 	// // Ignore if it's a quoted message, (e.g. Bot reply)
+	// 	// if (message.hasQuotedMsg) return;
 
-		// Ignore if it's not from me
-		// if (!message.fromMe) return;
+	// 	// Ignore if it's not from me
+	// 	if (message.fromMe) return;
 
-		
+	// 	// // Check if the message body contains "@Chatgpt_test"
+	// 	// if (message.body.includes("@Chatgpt_test")) 
 
-		await handleIncomingMessage(message);
-	});
+
+	// 	await handleIncomingMessage(message);
+	// });
 
 	// WhatsApp initialization
 	client.initialize();
