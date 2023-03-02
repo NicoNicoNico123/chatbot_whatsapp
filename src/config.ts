@@ -35,7 +35,7 @@ const config: IConfig = {
 	opentoken: process.env.OPENAI_ACCESS_TOKEN || "", // Default: ""
 
 	// Prefix
-	prefixEnabled: getEnvBooleanWithDefault("PREFIX_ENABLED", true), // Default: true
+	prefixEnabled: getEnvBooleanWithDefault("PREFIX_ENABLED", false), // Default: true
 	gptPrefix: process.env.GPT_PREFIX || "!gpt", // Default: !gpt
 	dallePrefix: process.env.DALLE_PREFIX || "!dalle", // Default: !dalle
 	aiConfigPrefix: process.env.AI_CONFIG_PREFIX || "!config", // Default: !config

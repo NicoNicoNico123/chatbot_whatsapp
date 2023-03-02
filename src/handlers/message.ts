@@ -11,6 +11,7 @@ import * as cli from "../cli/ui";
 import { handleMessageGPT } from "../handlers/gpt";
 import { handleMessageDALLE } from "../handlers/dalle";
 import { handleMessageAIConfig } from "../handlers/ai-config";
+import { handleMessageDALLE_mini } from "../handlers/dalle-mini"
 
 // Speech API & Whisper
 import { TranscriptionMode } from "../types/transcription-mode";
@@ -88,10 +89,16 @@ async function handleIncomingMessage(message: Message) {
 		return;
 	}
 
-	// DALLE (!dalle <prompt>)
+	// // DALLE (!dalle <prompt>)
+	// if (startsWithIgnoreCase(messageString, config.dallePrefix)) {
+	// 	const prompt = messageString.substring(config.dallePrefix.length + 1);
+	// 	await handleMessageDALLE(message, prompt);
+	// 	return;
+	// }
+	// DALLE_mini (!dalle <prompt>)
 	if (startsWithIgnoreCase(messageString, config.dallePrefix)) {
 		const prompt = messageString.substring(config.dallePrefix.length + 1);
-		await handleMessageDALLE(message, prompt);
+		await handleMessageDALLE_mini(message, prompt);
 		return;
 	}
 

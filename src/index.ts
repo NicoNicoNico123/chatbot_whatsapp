@@ -63,19 +63,19 @@ const start = async () => {
 		// Ignore if it's not from me
 		if (message.fromMe) return;
 
-		// Check if the message mentions the bot with "@"
-		const mentions = await message.getMentions();
+		// // Check if the message mentions the bot with "@"
+		// const mentions = await message.getMentions();
 
-		const botMentioned = mentions.some((contact) => contact.isMe);
+		// const botMentioned = mentions.some((contact) => contact.isMe);
 
-		// Check if the message body contains "@Chatgpt_test"
-		const includesText = message.body.includes("Chatgpt_test");
+		// // Check if the message body contains "@Chatgpt_test"
+		// const includesText = message.body.includes("Chatgpt_test");
 
-		if ( botMentioned || includesText ) {
-			await handleIncomingMessage(message);
-		}
+		// if ( botMentioned || includesText ) {
+		// 	await handleIncomingMessage(message);
+		// }
 		
-		// await handleIncomingMessage(message);
+		await handleIncomingMessage(message);
 
 		
 	});

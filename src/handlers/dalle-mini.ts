@@ -16,17 +16,26 @@ const handleMessageDALLE_mini = async (message: any, prompt: any) => {
         });
 
 		// Convert the response to base64
-		const output = CraiyonOutput.fromJSON(result);
-		const base64Images = output.asBase64();
+		const base64Images = result.asBase64();
 
 		const end = Date.now() - start;
 
-		const base64 = base64Images[0];
-		const image = new MessageMedia("image/jpeg", base64, "image.jpg");
+		//Check images have return
+		if (base64Images && base64Images.length > 0) {
+			const base64 = base64Images[0];
+			
+			const image = new MessageMedia("image/jpeg", base64, "image.jpg");
+  
+			cli.print(`[DALLE_mini] Answer to ${message.from} | OpenAI request took ${end}ms`);
+  
+			message.reply(image);
+		  } else {
+			// Handle the case where no images were returned
+			console.log("No images were returned");
+			message.reply("No images were returned");
+		  }
 
-		cli.print(`[DALLE_mini] Answer to ${message.from} | OpenAI request took ${end}ms`);
 
-		message.reply(image);
 	} catch (error: any) {
 		console.error("An error occured", error);
 		message.reply("An error occured, please contact the administrator. (" + error.message + ")");
